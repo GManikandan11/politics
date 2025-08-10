@@ -8,7 +8,7 @@ export default defineConfig({
   name: 'default',
   title: 'bizmagents-studio',
 
-  projectId: 'h6rlvllo',
+  projectId: 'ffyemvvw',
   dataset: 'production',
 
   plugins: [structureTool(), visionTool()],

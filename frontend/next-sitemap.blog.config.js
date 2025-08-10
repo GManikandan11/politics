@@ -3,7 +3,7 @@
 // 1. Fetch blog slugs from Sanity
 const fetchBlogUrlsFromCMS = async () => {
   const res = await fetch(
-    `https://h6rlvllo.api.sanity.io/v1/data/query/production?query=*[_type == "blog"]{ "slug": slug.current }`
+    `https://ffyemvvw.api.sanity.io/v1/data/query/production?query=*[_type == "blog"]{ "slug": slug.current }`
   );
   const json = await res.json();
   return json.result.map((b) => b.slug);
