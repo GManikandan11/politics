@@ -1,0 +1,105 @@
+<link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@700&display=swap" rel="stylesheet">
+<style>
+    /* Global styles */
+    body {
+        font-family: 'Nunito Sans', sans-serif;
+    }
+
+    /* Form styles */
+    #qrForm {
+        max-width: 400px;
+        margin: 20px auto;
+    }
+
+    #qrForm label {
+        font-weight: 700;
+        font-size: 20px;
+        color: #000; /* pure black */
+        display: block;
+        margin-bottom: 10px;
+    }
+
+    #qrForm input[type="number"],
+    #qrForm input[type="text"] {
+        width: 100%;
+        border: 2px solid black; /* dark black border */
+        margin-bottom: 20px; /* Gap between the label-input sets */
+        font-size: 16px;
+    }
+
+    #qrForm input[type="submit"] {
+        background-color: #F45C2C; /* your color */
+        color: #ffffff;
+        border: none;
+        padding: 10px 15px;
+        cursor: pointer;
+        border-radius: 5px;
+        font-size: 16px;
+    }
+
+    #qrForm input[type="submit"]:hover {
+        background-color: #0046A0; /* slightly darkened for hover effect */
+    }
+
+    #qrCodeDisplay {
+        text-align: center;
+        margin-top: 20px;
+    }
+</style>
+
+<form id="qrForm">
+
+    <label for="numberInput">WhatsApp Number:</label>
+    
+    <input type="number" value="1234567890" id="numberInput" required>
+    
+    <br><br>
+
+    <label for="textInput">Text:</label>
+    
+
+    <input type="text" id="textInput" required>
+    <br><br>
+    
+
+    <input type="submit"
+    style="background-color:#f45c2c;"
+    value="Generate QR Code">
+</form>
+<div id="displayLink">
+    
+</div>
+<div id="qrCodeDisplay">
+    <!-- QR code will be displayed here -->
+</div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/intl-tel-input@18.2.1/build/css/intlTelInput.css">
+<script src="https://cdn.jsdelivr.net/npm/intl-tel-input@18.2.1/build/js/intlTelInput.min.js"></script>
+
+<script>
+
+ const input = document.querySelector("#numberInput");
+    document.getElementById('qrForm').addEventListener('submit', function(event) {
+    event.preventDefault(); // Prevent the default form submission
+
+    var numberValue = document.getElementById('numberInput').value;
+    
+    // This will show the numerical calling code now
+    const iti = window.intlTelInputGlobals.getInstance(input);
+    var countryCode = iti.getSelectedCountryData().dialCode;
+    
+    var textValue = encodeURIComponent(document.getElementById('textInput').value); // URL encode to ensure special characters don't break the link
+
+    var data = `https://wa.me/${countryCode}${numberValue}?text=${textValue}`;
+    var qrLink = `https://chart.googleapis.com/chart?cht=qr&chs=200x200&chl=${data}`;
+
+    // Display the QR code
+    document.getElementById('qrCodeDisplay').innerHTML = `<img src="${qrLink}" alt="Generated QR Code">`;
+    document.getElementById('displayLink').innerHTML =  `<a href="${data}" >${data}</a>`;
+    
+});
+  window.intlTelInput(input, {
+      initialCountry:"in",
+    utilsScript: "https://cdn.jsdelivr.net/npm/intl-tel-input@18.2.1/build/js/utils.js",
+  });
+
+</script>

@@ -1,0 +1,12 @@
+# *
+User-agent: *
+Allow: /
+Disallow: /lp/
+Disallow: /es/lp/
+
+# Host
+Host: https://bizmagnets.ai
+
+# Sitemaps
+Sitemap: https://bizmagnets.ai/sitemap.xml
+Sitemap: https://bizmagnets.ai/blog-sitemap.xml

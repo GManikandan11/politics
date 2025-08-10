@@ -1,0 +1,20 @@
+{
+  "name": "bizmagnets",
+  "private": true,
+  "workspaces": [
+    "frontend",
+    "studio"
+  ],
+  "scripts": {
+    "build": "npm run build --workspace frontend && npm run build --workspace studio",
+    "dev": "echo 'Use workspace: npm run dev --workspace frontend or studio'"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.21",
+    "postcss": "^8.5.6",
+    "tailwindcss": "^4.1.10"
+  },
+  "dependencies": {
+    "next-themes": "^0.4.6"
+  }
+}

@@ -1,0 +1,57 @@
+.land-card{
+    grid-row-gap: 8.87475px;
+    /* background-color: #f9f9f9; */
+    border: 1px solid #000;
+    border-radius: 12px;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    width: 100%;
+    padding: 24px;
+    text-decoration: none;
+    display: flex
+;
+    box-shadow: 4px 4px #000;
+}
+    .triangle-bottom {
+        border: 50px solid #0000;
+        border-top-color: #210d43;
+        border-radius: 0;
+        width: 0;
+        height: 0;
+        padding-bottom: 0;
+        padding-right: 0;
+        margin: auto;
+    }
+
+    .card-icon{
+        grid-row-gap: 10px;
+    background-color: #210d43;
+    border-radius: 8px;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    width: 64px;
+    padding: 9px 17px;
+    text-decoration: none;
+    display: flex
+;
+    }
+    .frame-3522966{
+        justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    text-decoration: none;
+    display: flex
+    }
+    .text4{
+        color: #210d43;
+    text-align: center;
+    margin-top: 0;
+    margin-bottom: 0;
+    font-family: Bricolage Grotesque, sans-serif;
+    font-size: 3rem;
+    font-weight: 400;
+    line-height: 140%;
+    text-decoration: none;
+    }

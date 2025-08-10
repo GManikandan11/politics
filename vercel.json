@@ -1,0 +1,22 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "frontend/next.config.js",
+      "use": "@vercel/next"
+    },
+    {
+      "src": "studio/sanity.config.ts",
+      "use": "@vercel/static-build",
+      "config": {
+        "distDir": "studio/dist"
+      }
+    }
+  ],
+  "routes": [
+    {
+      "src": "/studio(?:/.*)?",
+      "dest": "studio/dist/index.html"
+    }
+  ]
+}

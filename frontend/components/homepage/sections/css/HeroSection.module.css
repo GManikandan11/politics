@@ -1,0 +1,66 @@
+.hero {
+  text-align: center;
+  margin-bottom: 4rem;
+  margin-top: 4rem;
+  
+}
+
+.hero h1 {
+  font-size: 7rem;
+  font-weight: 800;
+  line-height: 1.25;
+  margin-bottom: 1rem;
+}
+
+.hero h1 span {
+  color: #16a34a; /* Tailwind green-600 */
+}
+
+.subtitle {
+  font-size: 2rem;
+  color: #4b5563; /* Tailwind gray-700 */
+  margin-bottom: 0.5rem;
+}
+
+.highlight {
+  font-weight: 600;
+  color: #16a34a;
+  font-size: 2rem;
+  /* Tailwind gray-800 */
+}
+
+.buttonRow {
+  margin-top: 2rem;
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.button {
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  color: white;
+  font-weight: 600;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  text-decoration: none;
+  transition: opacity 0.2s ease-in-out;
+}
+
+.button:hover {
+  opacity: 0.9;
+}
+
+.orange {
+  background-color: #f97316;
+}
+
+.book-a-demo{
+  background-color: #f97316;
+}
+
+
+
+.secondary {
+  background-color: #4b5563;
+}

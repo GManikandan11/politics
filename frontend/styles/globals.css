@@ -1,0 +1,19 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@700&family=Inter:wght@400;600&display=swap');
+
+@layer components {
+  .btn-orange {
+    @apply inline-flex items-center px-5 py-2.5
+           rounded-md font-semibold text-sm
+           shadow-sm transition-colors
+           bg-orange-600 text-white hover:bg-orange-700;
+  }
+  .btn-blue {
+    @apply inline-flex items-center px-5 py-2.5
+           rounded-md font-semibold text-sm
+           shadow-sm transition-colors
+           bg-blue-600 text-white hover:bg-blue-700;
+  }
+}
