@@ -23,12 +23,13 @@ export default defineType({
       title: 'Slug',
       type: 'slug',
       options: {
-        source: 'heroSection.headline',
+        source: 'heroSection.headline.en', // Use English as default for slug
         maxLength: 96,
         slugify: (input) => input.toLowerCase().replace(/\s+/g, '-').slice(0, 96),
       },
       validation: (Rule) => Rule.required(),
     }),
+    
     // 1. Hero Section
     defineField({
       name: 'heroSection',
@@ -36,15 +37,15 @@ export default defineType({
       type: 'object',
       group: 'grid1',
       fields: [
-        defineField({name: 'highlight', title: 'Highlight Text', type: 'string'}),
-        defineField({name: 'headline', title: 'Headline', type: 'string'}),
-        defineField({name: 'subheadline', title: 'Subheadline', type: 'blockContent'}),
+        defineField({name: 'highlight', title: 'Highlight Text', type: 'localeString'}),
+        defineField({name: 'headline', title: 'Headline', type: 'localeString'}),
+        defineField({name: 'subheadline', title: 'Subheadline', type: 'localeBlockContent'}),
         defineField({
           name: 'primaryCta',
           title: 'Primary CTA',
           type: 'object',
           fields: [
-            defineField({name: 'text', title: 'Button Text', type: 'string'}),
+            defineField({name: 'text', title: 'Button Text', type: 'localeString'}),
             defineField({name: 'url', title: 'Button URL', type: 'url'}),
           ],
         }),
@@ -53,17 +54,24 @@ export default defineType({
           title: 'Secondary CTA',
           type: 'object',
           fields: [
-            defineField({name: 'text', title: 'Button Text', type: 'string'}),
+            defineField({name: 'text', title: 'Button Text', type: 'localeString'}),
             defineField({name: 'url', title: 'Button URL', type: 'url'}),
           ],
         }),
-        // defineField({name: 'heroImage', title: 'Hero Image', type: 'image'}),
-            defineField({
-              name: 'heroMedia',
-              title: 'Hero Media',
-              type: 'media',
-              options: { hotspot: true },
-            }),
+        // defineField({
+        //   name: 'heroMedia',
+        //   title: 'Hero Media',
+        //   type: 'image',
+        //   options: { hotspot: true },
+        //   fields: [
+        //     defineField({
+        //       name: 'alt',
+        //       title: 'Alt Text',
+        //       type: 'string',
+        //       description: 'Important for SEO and accessibility',
+        //     }),
+        //   ],
+        // }),
       ],
     }),
 
@@ -79,8 +87,8 @@ export default defineType({
           name: 'highlightItem',
           title: 'Highlight',
           fields: [
-            defineField({name: 'title', title: 'Title', type: 'string'}),
-            defineField({name: 'description', title: 'Description', type: 'string'}),
+            defineField({name: 'title', title: 'Title', type: 'localeString'}),
+            defineField({name: 'description', title: 'Description', type: 'localeString'}),
           ],
         },
       ],
@@ -94,12 +102,26 @@ export default defineType({
       type: 'object',
       group: 'grid3',
       fields: [
-        defineField({name: 'blurb', title: 'Tagline/Blurb', type: 'string'}),
+        defineField({name: 'blurb', title: 'Tagline/Blurb', type: 'localeString'}),
         defineField({
           name: 'logos',
           title: 'Customer Logos',
           type: 'array',
-          of: [{type: 'image'}],
+          of: [
+            defineField({
+              type: 'image',
+              name: 'logo',
+              title: 'Logo',
+              fields: [
+                defineField({
+                  name: 'alt',
+                  title: 'Alt Text',
+                  type: 'localeString',
+                  description: 'Important for SEO and accessibility',
+                }),
+              ],
+            }),
+          ],
         }),
         defineField({
           name: 'testimonials',
@@ -111,10 +133,21 @@ export default defineType({
               name: 'testimonial',
               title: 'Testimonial',
               fields: [
-                defineField({name: 'quote', title: 'Quote', type: 'text'}),
-                defineField({name: 'authorName', title: 'Author Name', type: 'string'}),
-                defineField({name: 'authorTitle', title: 'Author Title', type: 'string'}),
-                defineField({name: 'authorImage', title: 'Author Image', type: 'image'}),
+                defineField({name: 'quote', title: 'Quote', type: 'localeText'}),
+                defineField({name: 'authorName', title: 'Author Name', type: 'localeString'}),
+                defineField({name: 'authorTitle', title: 'Author Title', type: 'localeString'}),
+                defineField({
+                  name: 'authorImage',
+                  title: 'Author Image',
+                  type: 'image',
+                  fields: [
+                    defineField({
+                      name: 'alt',
+                      title: 'Alt Text',
+                      type: 'localeString',
+                    }),
+                  ],
+                }),
               ],
             },
           ],
@@ -129,7 +162,7 @@ export default defineType({
               name: 'ctaButton',
               title: 'CTA Button',
               fields: [
-                defineField({name: 'text', title: 'Button Text', type: 'string'}),
+                defineField({name: 'text', title: 'Button Text', type: 'localeString'}),
                 defineField({name: 'url', title: 'Button URL', type: 'url'}),
               ],
             },
@@ -146,14 +179,14 @@ export default defineType({
       type: 'object',
       group: 'grid4',
       fields: [
-        defineField({name: 'title', title: 'Title', type: 'string'}),
-        defineField({name: 'intro', title: 'Intro Text', type: 'string'}),
+        defineField({name: 'title', title: 'Title', type: 'localeString'}),
+        defineField({name: 'intro', title: 'Intro Text', type: 'localeString'}),
         defineField({
           name: 'scenarioOne',
           title: 'Scenario One',
           type: 'object',
           fields: [
-            defineField({name: 'name', title: 'Scenario Name', type: 'string'}),
+            defineField({name: 'name', title: 'Scenario Name', type: 'localeString'}),
             defineField({
               name: 'points',
               title: 'Bullet Points',
@@ -163,8 +196,8 @@ export default defineType({
                   type: 'object',
                   name: 'pointItem',
                   fields: [
-                    defineField({name: 'pointTitle', title: 'Point Title', type: 'string'}),
-                    defineField({name: 'pointText', title: 'Point Description', type: 'string'}),
+                    defineField({name: 'pointTitle', title: 'Point Title', type: 'localeString'}),
+                    defineField({name: 'pointText', title: 'Point Description', type: 'localeString'}),
                   ],
                 },
               ],
@@ -176,7 +209,7 @@ export default defineType({
           title: 'Scenario Two',
           type: 'object',
           fields: [
-            defineField({name: 'name', title: 'Scenario Name', type: 'string'}),
+            defineField({name: 'name', title: 'Scenario Name', type: 'localeString'}),
             defineField({
               name: 'points',
               title: 'Bullet Points',
@@ -186,8 +219,8 @@ export default defineType({
                   type: 'object',
                   name: 'pointItem',
                   fields: [
-                    defineField({name: 'pointTitle', title: 'Point Title', type: 'string'}),
-                    defineField({name: 'pointText', title: 'Point Description', type: 'string'}),
+                    defineField({name: 'pointTitle', title: 'Point Title', type: 'localeString'}),
+                    defineField({name: 'pointText', title: 'Point Description', type: 'localeString'}),
                   ],
                 },
               ],
@@ -196,181 +229,183 @@ export default defineType({
         }),
       ],
     }),
+    
     // 5. featureCards Section
-   defineField({
-  name: 'featureCards',
-  title: 'Feature Cards',
-  type: 'object',
-  group: 'grid5',
-  fields: [
     defineField({
-      name: 'sectionTitle',
-      title: 'Section Title',
-      type: 'string',
-    }),
-    defineField({
-      name: 'sectionDescription',
-      title: 'Section Description',
-      type: 'string',
-    }),
-    defineField({
-      name: 'cards',
-      title: 'Cards',
-      type: 'array',
-      of: [
-        {
-          type: 'object',
-          name: 'card',
-          fields: [
-            { name: 'icon', title: 'Icon (Emoji or Image)', type: 'string' },
-            { name: 'title', title: 'Card Title', type: 'string' },
-            { name: 'description', title: 'Card Description', type: 'string' },
-            { name: 'number', title: 'Card Number (e.g. 01)', type: 'string' },
+      name: 'featureCards',
+      title: 'Feature Cards',
+      type: 'object',
+      group: 'grid5',
+      fields: [
+        defineField({
+          name: 'sectionTitle',
+          title: 'Section Title',
+          type: 'localeString',
+        }),
+        defineField({
+          name: 'sectionDescription',
+          title: 'Section Description',
+          type: 'localeString',
+        }),
+        defineField({
+          name: 'cards',
+          title: 'Cards',
+          type: 'array',
+          of: [
+            {
+              type: 'object',
+              name: 'card',
+              fields: [
+                { name: 'icon', title: 'Icon (Emoji or Image)', type: 'string' },
+                { name: 'title', title: 'Card Title', type: 'localeString' },
+                { name: 'description', title: 'Card Description', type: 'localeString' },
+                { name: 'number', title: 'Card Number (e.g. 01)', type: 'string' },
+              ],
+            },
           ],
-        },
+        }),
       ],
     }),
-  ],
-}),
 
     // 6. conversionExplanation Section
     defineField({
-  name: 'conversionExplanation',
-  title: 'Conversion Explanation',
-  type: 'object',
-  group: 'grid6',
-  fields: [
-    {
-      name: 'tagline',
-      title: 'Section Tagline',
-      type: 'string',
-      description: 'Shown above the headline (e.g., Identify Anonymous Website Visitors)',
-    },
-    { name: 'headline', title: 'Headline', type: 'string' },
-    { name: 'subheadline', title: 'Subheadline', type: 'string' },
-    { name: 'image', title: 'Illustration/Image', type: 'image' },
-    {
-      name: 'bullets',
-      title: 'Bullet Points',
-      type: 'array',
-      of: [{ type: 'string' }],
-    },
-    {
-      name: 'buttonText',
-      title: 'Button Text',
-      type: 'string',
-      initialValue: 'See exactly how it works →',
-    },
-    {
-      name: 'buttonUrl',
-      title: 'Button URL',
-      type: 'url',
-    },
-  ],
-}),
-    // 7. dataHighlight Section
-
-    defineField({
-  name: 'demoRequestSection',
-  title: 'Demo Request Section',
-  type: 'object',
-  group: 'grid7', // or your relevant section group
-  fields: [
-    {
-      name: 'headline',
-      title: 'Headline',
-      type: 'string',
-    },
-    {
-      name: 'description',
-      title: 'Description',
-      type: 'blockContent',
-    },
-    {
-      name: 'features',
-      title: 'What we’ll cover in the demo',
-      type: 'array',
-      of: [{ type: 'string' }],
-    },
-    {
-      name: 'qaSessionText',
-      title: 'Q&A Session Info',
-      type: 'blockContent',
-    },
-  ],
-}),
-    // defineField({
-    //   name: 'dataHighlight',
-    //   title: 'Data Highlight Block',
-    //   type: 'object',
-    //   group: 'grid7',
-    //   fields: [
-    //     {name: 'title', title: 'Title', type: 'string'},
-    //     {name: 'description', title: 'Description', type: 'text'},
-    //     {
-    //       name: 'features',
-    //       title: 'Feature Boxes',
-    //       type: 'array',
-    //       of: [
-    //         {
-    //           type: 'object',
-    //           fields: [
-    //             {name: 'title', title: 'Box Title', type: 'string'},
-    //             {name: 'description', title: 'Box Description', type: 'string'},
-    //           ],
-    //         },
-    //       ],
-    //     },
-    //   ],
-    // }),
-defineField({
-  name: 'faq',
-  title: 'FAQ Section',
-  type: 'object',
-  group: 'grid8',
-  fields: [
-    defineField({
-      name: 'sectionLabel',
-      title: 'Tiny Label (e.g. “FAQ”)',
-      type: 'string',
-      initialValue: 'FAQ',
-    }),
-    defineField({
-      name: 'headline',
-      title: 'Headline',
-      type: 'string',
-    }),
-    defineField({
-      name: 'subhead',
-      title: 'Sub-headline',
-      type: 'blockContent', // or 'blockContent' if you want rich text formatting
-    }),
-    defineField({
-      name: 'items',
-      title: 'Questions & Answers',
-      type: 'array',
-      of: [
+      name: 'conversionExplanation',
+      title: 'Conversion Explanation',
+      type: 'object',
+      group: 'grid6',
+      fields: [
         {
-          type: 'object',
+          name: 'tagline',
+          title: 'Section Tagline',
+          type: 'localeString',
+          description: 'Shown above the headline (e.g., Identify Anonymous Website Visitors)',
+        },
+        { name: 'headline', title: 'Headline', type: 'localeString' },
+        { name: 'subheadline', title: 'Subheadline', type: 'localeString' },
+        { 
+          name: 'image', 
+          title: 'Illustration/Image', 
+          type: 'image',
           fields: [
-            { name: 'question', title: 'Question', type: 'string' },
-            { name: 'answer', title: 'Answer', type: 'text', rows: 6 }, // or 'blockContent'
+            defineField({
+              name: 'alt',
+              title: 'Alt Text',
+              type: 'localeString',
+            }),
           ],
-          preview: { select: { title: 'question' } },
+        },
+        {
+          name: 'bullets',
+          title: 'Bullet Points',
+          type: 'array',
+          of: [{ type: 'localeString' }],
+        },
+        {
+          name: 'buttonText',
+          title: 'Button Text',
+          type: 'localeString',
+          initialValue: {
+            en: 'See exactly how it works →',
+            ta: 'அது எவ்வாறு செயல்படுகிறது என்பதைப் பார்க்கவும் →'
+          },
+        },
+        {
+          name: 'buttonUrl',
+          title: 'Button URL',
+          type: 'url',
         },
       ],
     }),
-  ],
-}),
-      // 9. funnelSection
+    
+    // 7. demoRequestSection
+    defineField({
+      name: 'demoRequestSection',
+      title: 'Demo Request Section',
+      type: 'object',
+      group: 'grid7',
+      fields: [
+        {
+          name: 'headline',
+          title: 'Headline',
+          type: 'localeString',
+        },
+        {
+          name: 'description',
+          title: 'Description',
+          type: 'localeBlockContent',
+        },
+        {
+          name: 'features',
+          title: "What we ll cover in the demo",
+          type: 'array',
+          of: [{ type: 'localeString' }],
+        },
+        {
+          name: 'qaSessionText',
+          title: 'Q&A Session Info',
+          type: 'localeBlockContent',
+        },
+      ],
+    }),
+
+    // 8. FAQ Section
+    defineField({
+      name: 'faq',
+      title: 'FAQ Section',
+      type: 'object',
+      group: 'grid8',
+      fields: [
+        defineField({
+          name: 'sectionLabel',
+          title: 'Tiny Label (e.g. "FAQ")',
+          type: 'localeString',
+          initialValue: {
+            en: 'FAQ',
+            ta: 'அடிக்கடி கேட்கப்படும் கேள்விகள்'
+          },
+        }),
+        defineField({
+          name: 'headline',
+          title: 'Headline',
+          type: 'localeString',
+        }),
+        defineField({
+          name: 'subhead',
+          title: 'Sub-headline',
+          type: 'localeBlockContent',
+        }),
+        defineField({
+          name: 'items',
+          title: 'Questions & Answers',
+          type: 'array',
+          of: [
+            {
+              type: 'object',
+              fields: [
+                { name: 'question', title: 'Question', type: 'localeString' },
+                { name: 'answer', title: 'Answer', type: 'localeText' },
+              ],
+              preview: { 
+                select: { 
+                  title: 'question.en',
+                  subtitle: 'answer.en'
+                } 
+              },
+            },
+          ],
+        }),
+      ],
+    }),
+
+    // 9. funnelSection
     defineField({
       name: 'funnelSection',
       title: 'Funnel Section',
       type: 'object',
       group: 'grid9',
       fields: [
-        {name: 'title', title: 'Title', type: 'string'},
-        {name: 'description', title: 'Description', type: 'string'},
+        {name: 'title', title: 'Title', type: 'localeString'},
+        {name: 'description', title: 'Description', type: 'localeString'},
         {
           name: 'stages',
           title: 'Funnel Stages',
@@ -379,14 +414,15 @@ defineField({
             {
               type: 'object',
               fields: [
-                {name: 'label', title: 'Label', type: 'string'},
-                {name: 'subtext', title: 'Subtext', type: 'string'},
+                {name: 'label', title: 'Label', type: 'localeString'},
+                {name: 'subtext', title: 'Subtext', type: 'localeString'},
               ],
             },
           ],
         },
       ],
     }), 
+
     // 10. integrationMarketplace Section
     defineField({
       name: 'integrationMarketplace',
@@ -394,8 +430,8 @@ defineField({
       type: 'object',
       group: 'grid10',
       fields: [
-        {name: 'headline', title: 'Headline', type: 'string'},
-        {name: 'description', title: 'Description', type: 'blockContent'},
+        {name: 'headline', title: 'Headline', type: 'localeString'},
+        {name: 'description', title: 'Description', type: 'localeBlockContent'},
         {
           name: 'integrations',
           title: 'Integration Icons',
@@ -404,8 +440,19 @@ defineField({
             {
               type: 'object',
               fields: [
-                {name: 'name', title: 'Tool Name', type: 'string'},
-                {name: 'logo', title: 'Logo Image', type: 'image'},
+                {name: 'name', title: 'Tool Name', type: 'localeString'},
+                {
+                  name: 'logo', 
+                  title: 'Logo Image', 
+                  type: 'image',
+                  fields: [
+                    defineField({
+                      name: 'alt',
+                      title: 'Alt Text',
+                      type: 'localeString',
+                    }),
+                  ],
+                },
               ],
             },
           ],
@@ -415,12 +462,13 @@ defineField({
           title: 'Call to Action',
           type: 'object',
           fields: [
-            {name: 'text', title: 'CTA Text', type: 'string'},
+            {name: 'text', title: 'CTA Text', type: 'localeString'},
             {name: 'url', title: 'CTA URL', type: 'url'},
           ],
         },
       ],
     }),
+
     // 11. autoEngageSection
     defineField({
       name: 'autoEngageSection',
@@ -428,41 +476,62 @@ defineField({
       type: 'object',
       group: 'grid11',
       fields: [
-        defineField({name: 'label', title: 'Top Label', type: 'string'}),
-        defineField({name: 'headline', title: 'Headline', type: 'string'}),
-        defineField({name: 'subheadline', title: 'Subheadline', type: 'blockContent'}),
+        defineField({name: 'label', title: 'Top Label', type: 'localeString'}),
+        defineField({name: 'headline', title: 'Headline', type: 'localeString'}),
+        defineField({name: 'subheadline', title: 'Subheadline', type: 'localeBlockContent'}),
         defineField({
-        name: 'features',
-        title: 'Feature Tabs',
-        type: 'array',
-        of: [
-          {
-            type: 'object',
-            name: 'feature',
-            fields: [
-              defineField({ name: 'icon', title: 'Icon (Emoji or String)', type: 'string' }),
-              defineField({ name: 'title', title: 'Title', type: 'string' }),
-              defineField({ name: 'step', title: 'Step Number', type: 'string' }),
-              defineField({ name: 'description', title: 'Description', type: 'string' }),
-              defineField({ name: 'visual', title: 'Right-side Visual', type: 'image' }), // 👈 NEW
-              defineField({ name: 'disabled', title: 'Disabled?', type: 'boolean' }),
-            ],
-          },
-        ],
-      }),
+          name: 'features',
+          title: 'Feature Tabs',
+          type: 'array',
+          of: [
+            {
+              type: 'object',
+              name: 'feature',
+              fields: [
+                defineField({ name: 'icon', title: 'Icon (Emoji or String)', type: 'string' }),
+                defineField({ name: 'title', title: 'Title', type: 'localeString' }),
+                defineField({ name: 'step', title: 'Step Number', type: 'string' }),
+                defineField({ name: 'description', title: 'Description', type: 'localeString' }),
+                defineField({ 
+                  name: 'visual', 
+                  title: 'Right-side Visual', 
+                  type: 'image',
+                  fields: [
+                    defineField({
+                      name: 'alt',
+                      title: 'Alt Text',
+                      type: 'localeString',
+                    }),
+                  ],
+                }),
+                defineField({ name: 'disabled', title: 'Disabled?', type: 'boolean' }),
+              ],
+            },
+          ],
+        }),
         defineField({
           name: 'personaCard',
           title: 'Persona Card',
           type: 'object',
           fields: [
-            defineField({name: 'name', title: 'Name', type: 'string'}),
-            defineField({name: 'title', title: 'Title', type: 'string'}),
-            defineField({name: 'location', title: 'Location', type: 'string'}),
-            defineField({name: 'image', title: 'Image', type: 'image'}),
-            defineField({name: 'badges', title: 'Badges', type: 'array', of: [{type: 'string'}]}),
+            defineField({name: 'name', title: 'Name', type: 'localeString'}),
+            defineField({name: 'title', title: 'Title', type: 'localeString'}),
+            defineField({name: 'location', title: 'Location', type: 'localeString'}),
+            defineField({
+              name: 'image', 
+              title: 'Image', 
+              type: 'image',
+              fields: [
+                defineField({
+                  name: 'alt',
+                  title: 'Alt Text',
+                  type: 'localeString',
+                }),
+              ],
+            }),
+            defineField({name: 'badges', title: 'Badges', type: 'array', of: [{type: 'localeString'}]}),
           ],
         }),
-
         defineField({
           name: 'messageSteps',
           title: 'Message Steps',
@@ -473,12 +542,12 @@ defineField({
               name: 'message',
               fields: [
                 defineField({name: 'step', title: 'Step', type: 'string'}),
-                defineField({name: 'text', title: 'Message Content', type: 'text'}),
+                defineField({name: 'text', title: 'Message Content', type: 'localeText'}),
                 defineField({
                   name: 'tags',
                   title: 'Tags (e.g., auto-engaged)',
                   type: 'array',
-                  of: [{type: 'string'}],
+                  of: [{type: 'localeString'}],
                 }),
               ],
             },

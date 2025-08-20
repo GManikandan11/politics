@@ -4,7 +4,7 @@ import { generateLandingPageMetadata } from '@/lib/metaData/landingpage';
 import LandingPage from '@/components/landingPage/LandingPage';
 import { notFound } from 'next/navigation';
 import DebugClient from '@/components/DebugClient';
-
+import {useLanguage} from '@/contexts/LanguageContext';
 export const generateMetadata = generateLandingPageMetadata;
 
 type Props = {
@@ -13,7 +13,8 @@ type Props = {
 
 export default async function LandingPageSlug({ params }: Props) {
   const slug = params.slug;
-  const landingPage = await client.fetch(LANDING_PAGE_QUERY, { slug });
+  const { currentLanguage } = useLanguage();
+  const landingPage = await client.fetch(LANDING_PAGE_QUERY(currentLanguage), { slug });
 
   if (!landingPage) {
     return notFound(); // or show a fallback UI

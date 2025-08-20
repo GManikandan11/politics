@@ -15,6 +15,24 @@ module.exports = {
         inter: ["Inter", "sans-serif"],
       },
       colors: {
+         dmk: {
+          red: '#E31937', // Primary DMK red
+          black: '#000000', // DMK black
+          white: '#FFFFFF', // DMK white
+          yellow: '#FFD700', // Star/emblem color
+          light: {
+            background: '#FFFFFF',
+            text: '#111827',
+            primary: '#E31937',
+            secondary: '#1E40AF',
+          },
+          dark: {
+            background: '#111827',
+            text: '#F3F4F6',
+            primary: '#F87171',
+            secondary: '#93C5FD',
+          }
+        },
         primary: "#6f5bc6",
         tick: "#485aff",
         secondary: "#48a0fa",

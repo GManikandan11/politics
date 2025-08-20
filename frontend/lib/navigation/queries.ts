@@ -5,12 +5,26 @@ export const NAVIGATION_QUERY = `
         url
       }
     },
+    headline {
+      en,
+      ta
+    },
+    subheadline {
+      en,
+      ta
+    },
     menuItems[]{
-      title,
+      title {
+        en,
+        ta
+      },
       link,
       hasDropdown,
       dropdownItems[]{
-        title,
+        title {
+          en,
+          ta
+        },
         link
       }
     },

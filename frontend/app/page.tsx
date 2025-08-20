@@ -1,111 +1,59 @@
-// import styles from './HomePage.module.css';
-// import { client } from '@/sanity/client';
-// import DebugClient from '@/components/DebugClient';
-// import HeroSection from '@/components/homepage/sections/HeroSection';
-// import PostList from '@/components/homepage/sections/PostList';
-// import './../styles/globals.css' // Ensure global styles are imported if needed
-
-// import { BLOGCARDS_PAGE_QUERY, FAQ_PAGE_QUERY, GETTING_STARTED_QUERY, HOMEPAGE_QUERY, MARKETING_PAGE_QUERY, POST_LIST_QUERY, TESTIMONIALS_QUERY } from '@/lib/home/queries';
-// import { NAVIGATION_QUERY } from '@/lib/navigation/queries';
-
-// import NavigationBar from '@/components/navigation/NavigationBar';
-// import GettingStartedSection from '@/components/homepage/sections/GettingStartedSection';
-import Marketing from '@/components/homepage/sections/Marketing';
-import FAQ from '@/components/homepage/sections/FAQ';
-// import BlogCards from '@/components/homepage/sections/BlogCards';
-// import BlogCardsSection from '@/components/homepage/sections/BlogCardsSelection';
-// import TestimonialsSection from '@/components/homepage/sections/TestimonialsSection';
-// import LandingPage from '@/components/landingPage/LandingPage';
-// import { LANDING_PAGE_QUERY } from '@/lib/landingpage/queries';
-
-// export default async function HomePage() {
-//   const [posts, homepage, navigation,marketing,faq,blogCards,testimonials] = await Promise.all([
-//     client.fetch(POST_LIST_QUERY, {}, { next: { tags: ['posts'] } }),
-//     client.fetch(HOMEPAGE_QUERY, {}, { next: { tags: ['homepage'] } }),
-//     client.fetch(NAVIGATION_QUERY, {}, { next: { tags: ['navigation'] } }),
-//     client.fetch(MARKETING_PAGE_QUERY, {}, { next: { tags: ['marketing'] } }),
-//     client.fetch(FAQ_PAGE_QUERY, {}, { next: { tags: ['faq'] } }),
-//     client.fetch(BLOGCARDS_PAGE_QUERY, {}, { next: { tags: ['blogCards'] } }),
-//     client.fetch(TESTIMONIALS_QUERY, {}, { next: { tags: ['testimonials'] } }),
-// ]) as any;
-
-
-//   const landingPage = await client.fetch(LANDING_PAGE_QUERY, { slug:'landing/homepage' });
-
-
-
-//   return (
-//     <div  className="container mx-auto px-4 max-w-7xl">
-//       {/* <NavigationBar navigation={navigation} /> */}
-//       <main className='container dark:bg-background text-center'>
-//         {/* <PostList posts={posts} /> */}
-//         {/* <HeroSection {...homepage} />
-//         <Marketing {...marketing} />
-//         <FAQ {...faq} />
-//         <BlogCardsSection  {...blogCards} />
-//         <TestimonialsSection {...testimonials}/>
-//         <DebugClient data={{ posts, homepage, navigation,marketing,faq,blogCards,testimonials }} /> */}
-//             <LandingPage {...landingPage} />
-//       </main>
-//     </div>
-//   );
-// }
-
-import './../styles/globals.css';
-
+// app/page.tsx
+import HomePageWrapper from '@/components/HomePageWrapper';
 import { client } from '@/sanity/client';
-import LandingPage from '@/components/landingPage/LandingPage';
-import { LANDING_PAGE_QUERY } from '@/lib/landingpage/queries';
+import { LANDING_PAGE_BASE_QUERY } from '@/lib/landingpage/queries';
 
-import { 
-  BLOGCARDS_PAGE_QUERY, 
-  FAQ_PAGE_QUERY, 
-  GETTING_STARTED_QUERY, 
-  HOMEPAGE_QUERY, 
-  MARKETING_PAGE_QUERY, 
-  POST_LIST_QUERY, 
-  TESTIMONIALS_QUERY 
-} from '@/lib/home/queries';
+export const revalidate = 60; // ISR: revalidate every 60s
 
-import { NAVIGATION_QUERY } from '@/lib/navigation/queries';
+export const metadata = {
+  title: 'Home Page',
+  description: 'Welcome to our website',
+};
 
-import DebugClient from '@/components/DebugClient';
+type SearchParams = { lang?: string };
 
-export default async function HomePage() {
-  // Fetch all static data in parallel (can be reused or removed)
-  const [
-    posts, 
-    homepage, 
-    navigation,
-    marketing,
-    faq,
-    blogCards,
-    testimonials
-  ] = await Promise.all([
-    client.fetch(POST_LIST_QUERY, {}, { next: { tags: ['posts'] } }),
-    client.fetch(HOMEPAGE_QUERY, {}, { next: { tags: ['homepage'] } }),
-    client.fetch(NAVIGATION_QUERY, {}, { next: { tags: ['navigation'] } }),
-    client.fetch(MARKETING_PAGE_QUERY, {}, { next: { tags: ['marketing'] } }),
-    client.fetch(FAQ_PAGE_QUERY, {}, { next: { tags: ['faq'] } }),
-    client.fetch(BLOGCARDS_PAGE_QUERY, {}, { next: { tags: ['blogCards'] } }),
-    client.fetch(TESTIMONIALS_QUERY, {}, { next: { tags: ['testimonials'] } }),
-  ]);
+export default async function HomePage({ searchParams }: { searchParams?: SearchParams }) {
+  const language = searchParams?.lang ?? 'en';
 
-  // Fetch dynamic landing page data (the primary content)
-  const landingPage = await client.fetch(LANDING_PAGE_QUERY, {
-    slug: "homepage",
-  });
+  try {
+    // NOTE: Query doesn't use `language`, so we only pass `slug`
+    const landingPage = await client.fetch<any | null>(
+      LANDING_PAGE_BASE_QUERY,
+      { slug: 'home' },
+      {
+        next: {
+          revalidate: 60,
+          tags: ['landingPages'],
+        },
+      }
+    );
 
-  return (
-    <div className="">
-      <main className="dark:bg-background text-center">
-        {/* 🚀 Render the landing page with content sections */}
-        <DebugClient data={{ faq }} />
-        <LandingPage {...landingPage} />
-        {/* <Marketing {...marketing} /> */}
-        <FAQ {...faq} />
-        {/* 🛠 Optional: Include this for development debugging */}
-      </main>
-    </div>
-  );
+    if (!landingPage) {
+      return (
+        <div className="min-h-screen flex items-center justify-center">
+          <div className="text-center">
+            <h1 className="text-2xl font-bold mb-4">Page not found</h1>
+            <p className="text-gray-600">No landing page data found for slug: <code>home</code></p>
+          </div>
+        </div>
+      );
+    }
+
+    return <HomePageWrapper initialData={{ landingPage, language }} />;
+  } catch (error) {
+    console.error('Error in HomePage:', error);
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <h1 className="text-2xl font-bold mb-4">Error loading page</h1>
+          <p className="text-gray-600">Please check your Sanity configuration and CORS settings.</p>
+          <div className="mt-4 p-4 bg-red-50 text-red-700 rounded">
+            <p className="text-sm">
+              Error details: {error instanceof Error ? error.message : 'Unknown error'}
+            </p>
+          </div>
+        </div>
+      </div>
+    );
+  }
 }

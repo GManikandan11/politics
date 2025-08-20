@@ -25,7 +25,9 @@ import pricingSection from '../schemas/Blocks/pricingSection';
 import  heroSection from '../schemas/Blocks/heroSection';
 import landingPage from '../schemas/landingPage';
 import landingpages from '../schemas/landingPages';
+import localString from '../../studio/schemas/localeString';
 export const schemaTypes = [
+  localString,
   navigation,
   post,
   marketing,

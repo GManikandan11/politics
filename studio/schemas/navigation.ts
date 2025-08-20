@@ -12,6 +12,16 @@ export default defineType({
       options: { hotspot: true },
     }),
     defineField({
+      name: 'headline',
+      title: 'Headline',
+      type: 'localeString',
+    }),
+    defineField({
+      name: 'subheadline',
+      title: 'Subheadline',
+      type: 'localeString',
+    }),
+    defineField({
       name: 'menuItems',
       title: 'Menu Items',
       type: 'array',
@@ -19,7 +29,11 @@ export default defineType({
         {
           type: 'object',
           fields: [
-            { name: 'title', title: 'Title', type: 'string' },
+            { 
+              name: 'title', 
+              title: 'Title', 
+              type: 'localeString' 
+            },
             {
               name: 'link',
               title: 'Link Path',
@@ -42,7 +56,11 @@ export default defineType({
                 {
                   type: 'object',
                   fields: [
-                    { name: 'title', title: 'Dropdown Item Title', type: 'string' },
+                    { 
+                      name: 'title', 
+                      title: 'Dropdown Item Title', 
+                      type: 'localeString' 
+                    },
                     {
                       name: 'link',
                       title: 'Dropdown Item Link',
@@ -51,14 +69,20 @@ export default defineType({
                     },
                   ],
                   preview: {
-                    select: { title: 'title', subtitle: 'link' },
+                    select: { 
+                      title: 'title.en', 
+                      subtitle: 'link' 
+                    },
                   },
                 },
               ],
             },
           ],
           preview: {
-            select: { title: 'title', subtitle: 'link' },
+            select: { 
+              title: 'title.en', 
+              subtitle: 'link' 
+            },
           },
         },
       ],
