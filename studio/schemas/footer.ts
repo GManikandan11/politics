@@ -1,5 +1,24 @@
 import { defineField, defineType } from 'sanity'
 
+// Define the localized string type
+const localeString = {
+  title: 'Localized String',
+  name: 'localeString',
+  type: 'object',
+  fields: [
+    {
+      title: 'English',
+      name: 'en',
+      type: 'string'
+    },
+    {
+      title: 'Tamil',
+      name: 'ta',
+      type: 'string'
+    }
+  ]
+}
+
 export default defineType({
   name: 'footer',
   title: 'Footer Settings',
@@ -15,7 +34,11 @@ export default defineType({
           type: 'object',
           title: 'Column',
           fields: [
-            { name: 'title', type: 'string', title: 'Heading' },
+            { 
+              name: 'title', 
+              type: 'localeString', 
+              title: 'Heading' 
+            },
             {
               name: 'links',
               title: 'Links',
@@ -25,15 +48,18 @@ export default defineType({
                   name: 'link',
                   type: 'object',
                   fields: [
-                    { name: 'label', type: 'string', title: 'Label' },
-                      {
-                        name: 'link',
-                        title: 'Link Path',
-                        type: 'string',
-                        description: 'Enter a relative path (e.g., "/home")',
-                        validation: Rule => Rule.regex(/^\/.+/, 'Must start with "/"'),
-                        },
-                    // { name: 'href', type: 'url', title: 'URL' },
+                    { 
+                      name: 'label', 
+                      type: 'localeString', 
+                      title: 'Label' 
+                    },
+                    {
+                      name: 'link',
+                      title: 'Link Path',
+                      type: 'string',
+                      description: 'Enter a relative path (e.g., "/home")',
+                      validation: Rule => Rule.regex(/^\/.+/, 'Must start with "/"'),
+                    },
                   ],
                 }),
               ],
@@ -53,7 +79,11 @@ export default defineType({
           name: 'social',
           type: 'object',
           fields: [
-            { name: 'platform', type: 'string', title: 'Platform (e.g. Twitter)' },
+            { 
+              name: 'platform', 
+              type: 'localeString', 
+              title: 'Platform (e.g. Twitter)' 
+            },
             { name: 'href', type: 'url', title: 'URL' },
             {
               name: 'icon',
@@ -75,7 +105,11 @@ export default defineType({
           name: 'app',
           type: 'object',
           fields: [
-            { name: 'os', type: 'string', title: 'OS (android / ios)' },
+            { 
+              name: 'os', 
+              type: 'localeString', 
+              title: 'OS (android / ios)' 
+            },
             { name: 'href', type: 'url', title: 'Store URL' },
             {
               name: 'icon',
@@ -91,8 +125,11 @@ export default defineType({
     defineField({
       name: 'copyright',
       title: 'Copyright Text',
-      type: 'string',
-      initialValue: `© ${new Date().getFullYear()} My Company, Inc. All rights reserved.`,
+      type: 'localeString',
+      initialValue: {
+        en: `© ${new Date().getFullYear()} My Company, Inc. All rights reserved.`,
+        ta: `© ${new Date().getFullYear()} என் நிறுவனம், Inc. அனைத்து உரிமைகளும் பாதுகாக்கப்பட்டவை.`
+      }
     }),
   ],
 })

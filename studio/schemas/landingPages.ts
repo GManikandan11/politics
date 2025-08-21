@@ -58,20 +58,12 @@ export default defineType({
             defineField({name: 'url', title: 'Button URL', type: 'url'}),
           ],
         }),
-        // defineField({
-        //   name: 'heroMedia',
-        //   title: 'Hero Media',
-        //   type: 'image',
-        //   options: { hotspot: true },
-        //   fields: [
-        //     defineField({
-        //       name: 'alt',
-        //       title: 'Alt Text',
-        //       type: 'string',
-        //       description: 'Important for SEO and accessibility',
-        //     }),
-        //   ],
-        // }),
+    defineField({
+                  name: 'heroMedia',
+                  title: 'Hero Media',
+                  type: 'media',
+                  options: { hotspot: true },
+                }),
       ],
     }),
 

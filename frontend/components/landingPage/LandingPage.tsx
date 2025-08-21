@@ -33,26 +33,24 @@ function asText(value: MultilingualText, lang: string, fallback = ''): string {
   return fallback;
 }
 
-function MediaBlock({ media, alt }: { media?: Media | null; alt?: MultilingualText }) {
-  const { currentLanguage } = useLanguage();
-  const altText = asText(alt, currentLanguage, 'media');
-
-  if (!media?.url) return null;
-
-  return media?.type === 'video' ? (
+function MediaBlock({ media, alt }: { media: Media; alt: string }) {
+  return media?.type === "video" ? (
+    <>
     <video
-      src={media.url}
+      src={media?.url}
       playsInline
-      controls
+      // autoPlay
+      // loop
+      controls // Optional: show play/pause and volume controls
       className="h-full w-full object-cover rounded-xl"
     />
+    </>
   ) : (
     <Image
-      src={media.url}
-      alt={altText}
-      width={1200}
-      height={675}
-      sizes="(max-width: 768px) 100vw, 960px"
+      src={media?.url}
+      alt={alt}
+      width={1000}
+      height={600}
       className="rounded-xl"
       priority
     />
@@ -70,7 +68,7 @@ interface HeroSection {
   subheadline?: any; // PortableTextValue or string
   primaryCta?: CTA;
   secondaryCta?: CTA;
-  heroMedia?: (Media & { alt?: MultilingualText }) | null;
+  heroMedia?: (Media & { alt?: MultilingualText }) | any;
 }
 
 interface HighlightItem {
@@ -249,7 +247,9 @@ export default function LandingPage({
 
             {heroSection?.heroMedia ? (
               <div className="mt-20 max-w-5xl mx-auto">
-                <MediaBlock media={heroSection.heroMedia} alt={heroSection?.headline} />
+         <MediaBlock media={heroSection.heroMedia} 
+            alt={heroSection.heroMedia?.alt || heroSection.headline}
+            />
               </div>
             ) : null}
           </section>

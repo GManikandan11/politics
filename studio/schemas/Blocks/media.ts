@@ -18,6 +18,12 @@ export default defineType({
       type: 'file',
       options: {accept: 'video/mp4,video/webm'},
     }),
+     defineField({
+      name: 'alt',
+      title: 'Alt text (general)',
+      type: 'string',
+      description: 'Optional alt for videos or generic media'
+    })
   ],
   preview: {
     select: {

@@ -8,7 +8,12 @@ export const LANDING_PAGE_BASE_QUERY = groq`
     highlight, headline, subheadline,
     primaryCta{ text, url },
     secondaryCta{ text, url },
-    heroMedia{ asset->{url}, alt }
+      heroMedia{
+      "type":  select(defined(video) => "video", "image"),
+      "url":   coalesce(video.asset->url, image.asset->url),
+      "mime":  video.asset->mimeType,
+      "alt":   coalesce(image.alt, alt, "Hero media")
+    }
   },
   highlightsSection[]{ title, description },
   socialProofSection{

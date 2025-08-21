@@ -10,6 +10,7 @@ import './../styles/globals.css'
 import Script from 'next/script'
 // import { AppProvider } from '@/contexts/AppContext'
 import { LanguageProvider } from '@/contexts/LanguageContext'
+import DebugClient from '@/components/DebugClient'
 
 const fallbackImage = '/bizmagnets200x200.png'
 
@@ -67,6 +68,7 @@ export default async function RootLayout({
     client.fetch(NAVIGATION_QUERY, {}, { next: { tags: ['navigation'] } }),
     client.fetch(FOOTER_QUERY, {}, { next: { tags: ['footer'] } }),
   ]) as any
+  
 
   return (
     <html lang="en">
@@ -368,7 +370,8 @@ export default async function RootLayout({
         <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
           <NavigationBar navigation={navigation} />
           {children}
-          {/* <Footer footer={footer} /> */}
+          <DebugClient data={{footer}}  />
+          <Footer footer={footer} language='en'  />
         </ThemeProvider>
       </LanguageProvider>
       {/* </AppProvider> */}
