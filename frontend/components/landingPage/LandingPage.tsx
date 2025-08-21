@@ -175,7 +175,9 @@ export default function LandingPage({
     >
       <div className="space-y-16">
         {/* Hero Section */}
-        <div style={{ backgroundColor: currentColors.highlight }}>
+        <div 
+        // style={{ backgroundColor: currentColors.highlight }}
+        >
           <section className="text-center py-10 px-4">
             {highlightText ? (
               <p
@@ -408,20 +410,30 @@ export default function LandingPage({
         </section>
 
         {/* Other Sections */}
-        {featureCards ? <FeatureCards featureCards={featureCards} /> : null}
+        {/* 
 
-        {conversionExplanation ? (
-          <ConversionExplanation conversionExplanation={conversionExplanation} />
-        ) : null}
 
         {demoRequestSection ? (
           <div ref={demoRef}>
             <DemoSection data={demoRequestSection} />
           </div>
-        ) : null}
+          ) : null} */}
 
+       {problemSection && (
+         <ProblemSection
+         title={problemSection.title}
+         intro={problemSection.intro}
+         scenarioOne={problemSection.scenarioOne}
+         scenarioTwo={problemSection.scenarioTwo}
+         currentLanguage={currentLanguage}
+         />
+        )}
+        {featureCards ? <FeatureCards featureCards={featureCards} /> : null}
+        {conversionExplanation ? (
+          <ConversionExplanation conversionExplanation={conversionExplanation} />
+        ) : null}
         {/* Uncomment when you’re ready to render them */}
-        {/* {funnelSection?.title && <FunnelSection funnelSection={funnelSection} />} */}
+        {funnelSection?.title && <FunnelSection funnelSection={funnelSection} />}
         {/* {integrationMarketplace && <IntegrationMarketplaceSection integrationMarketplace={integrationMarketplace} />} */}
         {/* {autoEngageSection?.headline && <AutoEngageSection autoEngageSection={autoEngageSection} />} */}
         {/* {faq && <FAQ {...faq} />} */}

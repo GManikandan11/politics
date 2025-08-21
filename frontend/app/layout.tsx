@@ -371,7 +371,7 @@ export default async function RootLayout({
           <NavigationBar navigation={navigation} />
           {children}
           <DebugClient data={{footer}}  />
-          <Footer footer={footer} language='en'  />
+          <Footer footer={footer}   />
         </ThemeProvider>
       </LanguageProvider>
       {/* </AppProvider> */}

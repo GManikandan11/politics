@@ -1,6 +1,6 @@
 import { groq } from 'next-sanity';
-// lib/landingpage/queries.ts
 
+// lib/landingpage/queries.ts
 export const LANDING_PAGE_BASE_QUERY = groq`
 *[_type == "landingPages" && slug.current == $slug][0]{
   _id, _createdAt, _updatedAt, slug,
@@ -8,7 +8,7 @@ export const LANDING_PAGE_BASE_QUERY = groq`
     highlight, headline, subheadline,
     primaryCta{ text, url },
     secondaryCta{ text, url },
-      heroMedia{
+    heroMedia{
       "type":  select(defined(video) => "video", "image"),
       "url":   coalesce(video.asset->url, image.asset->url),
       "mime":  video.asset->mimeType,
@@ -16,17 +16,60 @@ export const LANDING_PAGE_BASE_QUERY = groq`
     }
   },
   highlightsSection[]{ title, description },
+
+  problemSection{
+    title,
+    intro,
+    scenarioOne{
+      name,
+      points[]{ pointTitle, pointText }
+    },
+    scenarioTwo{
+      name,
+      points[]{ pointTitle, pointText }
+    }
+  },
+
   socialProofSection{
     blurb,
-    logos[]{ asset->{url}, alt },
-    testimonials[]{ quote, authorName, authorTitle, authorImage{ asset->{url}, alt } },
+    logos[]{ asset->{ url }, alt },
+    testimonials[]{
+      quote,
+      authorName,
+      authorTitle,
+      authorImage{ asset->{ url }, alt }
+    },
     ctaButtons[]{ text, url }
   },
+
   conversionExplanation{
     tagline, headline, subheadline,
-    image{ asset->{url}, alt },
+    image{ asset->{ url }, alt },
     bullets[],
     buttonText, buttonUrl
+  },
+  funnelSection{
+    title,
+    description,
+    stages[]{
+      label,
+      subtext
+    },
+    cta{ text, url }
+  },
+  featureCards{
+    sectionTitle,
+    sectionDescription,
+    cards[]{
+      "icon": select(
+        defined(icon.asset) => icon.asset->url,
+        defined(icon) && icon != "" => icon,
+        null
+      ),
+      title,
+      description,
+      number
+    }
   }
 }
 `;
