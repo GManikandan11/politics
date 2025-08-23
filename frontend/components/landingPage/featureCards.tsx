@@ -38,7 +38,7 @@ export default function FeatureCards({ featureCards }: FeatureCardsProps) {
   };
 
   return (
-    <div className="bg-primaryLight dark:bg-gray-900 pb-20 pt-16" style={{ margin: '0px' }}>
+    <div className="bg-primaryLight dark:bg-gray-900 pb-20" style={{ margin: '0px' }}>
       <div className="triangle-bottom m-auto" style={{ margin: 'auto' }}></div>
       <section className="px-4 container mx-auto max-w-7xl space-y-12">
         {/* Top Section Title and Description */}
